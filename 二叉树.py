@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'jaundice'
 # 二叉树的遍及
+# @参考：
 # http://www.cnblogs.com/yupeng/p/3414451.html
 
 class TreeNode(object):
@@ -95,16 +96,9 @@ n8 = TreeNode(8)
 root = TreeNode('root',n7,n8)
 
 dict={}
-dict[n1]=0
-dict[n2]=0
-dict[n3]=0
-dict[n4]=0
-dict[n5]=0
-dict[n6]=0
-dict[n7]=0
-dict[n8]=0
+for i in range (1,9):
+    dict[eval("n"+str(i))]=0 # 李书源提点
 dict[root]=0
-# print dict
 
 bt=BTree(root)
 # print "preorfer"
