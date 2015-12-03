@@ -37,6 +37,49 @@ def RB_insert(T,z):
     # mid_Order(T) # 调用二叉树的中序遍及来打印红黑树
     post_Order(T) # 中序和后序可以确定一棵红黑树
 
+def RB_transplant(T,origin,new):
+    if origin==T.root:
+        T.root=new
+    elif origin==origin.parent.left:
+        origin.parent.left=new
+    else:
+        origin.parent.right=new
+    new.parent=origin.parent
+
+def RB_delete(T,z):
+    T.nil.left=T.nil
+    T.nil.right=T.nil
+    y=z
+    y_origin_color=y.color
+    if z.left==T.nil:
+        RB_transplant(T,z,z.right)
+        x=z.right
+    elif z.right==T.nil:
+        RB_transplant(T,z,z.left)
+        x=z.left
+    else:
+        y=Tree_Min(T,z.right)#todo
+        x=y.right
+        if y==z.right:
+            x.parent=y
+        else:
+            RB_transplant(T,y,y.right)
+            y.right=z.right
+            y.right.parent=y
+        RB_transplant(T,z,y)
+        y.left=z.left
+        y.left.parent=y
+        y.color=z.color
+    if y_origin_color=="b":
+        RB_delete_fixup(T,x)
+    post_Order(T)
+        # mid_Order(T)
+
+def Tree_Min(T,x):
+    while x.left!=T.nil:
+        x=x.left
+    return x
+
 def mid_Order(T):
    ss=[]
    ss.append(T.root)
@@ -131,6 +174,50 @@ def RB_insert_fixup(T,z):
                 z.parent.parent.color="r"
                 left_rotate(T,z.parent.parent)
 
+def RB_delete_fixup(T,x):
+    while x!=T.root and x.color=="b":
+        if x==x.parent.left:
+            w=x.parent.right
+            if w.color=="r":
+                w.color="b"
+                x.parent.color="b"
+                left_rotate(T,x.parent)
+                w=x.parent.left
+            if w.left.color=="b" and w.right.color=="b":
+                w.color="r"
+                x=x.parent
+            else:
+                if w.right.color=="b":
+                    w.left.color="b"
+                    x.color="r"
+                    right_rotate(T,w)
+                    w=x.parent.right
+                w.color=x.parent.color
+                x.parent.color="b"
+                left_rotate(T,x.parent)
+                x=T.root
+        else:
+            w=x.parent.left
+            if w.color=="r":
+                w.color="b"
+                x.parent.color="b"
+                right_rotate(T,x.parent)
+                w=x.parent.right
+            if w.left.color=="b" and w.right.color=="b":
+                w.color="r"
+                x=x.parent
+            else:
+                if w.left.color=="b":
+                    w.right.color="b"
+                    x.color="r"
+                    left_rotate(T,w)
+                    w=x.parent.left
+                w.color=x.parent.color
+                x.parent.color="b"
+                right_rotate(T,x.parent)
+                x=T.root
+    x.color="b"
+
 tree=Tree()
 n8=TreeNode(8,tree.nil,tree.nil,"r")
 n7=TreeNode(5,tree.nil,tree.nil,"r")
@@ -155,7 +242,8 @@ for i in range (1,9):
 
 z=TreeNode(4)
 tree.root=n1
-RB_insert(tree,z)
+RB_delete(tree,n5)
+# RB_insert(tree,z)
 # left_rotate(tree,n2)
 # mid_Order(tree)
 # post_Order(tree)
