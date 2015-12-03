@@ -58,7 +58,8 @@ def RB_delete(T,z):
         RB_transplant(T,z,z.left)
         x=z.left
     else:
-        y=Tree_Min(T,z.right)#todo
+        y=Tree_Min(T,z.right)
+        y_origin_color=y.color#这句话忘记打，结果常报错
         x=y.right
         if y==z.right:
             x.parent=y
@@ -216,6 +217,8 @@ def RB_delete_fixup(T,x):
                 x.parent.color="b"
                 right_rotate(T,x.parent)
                 x=T.root
+        # mid_Order(T)
+        # print "---------------------------------"
     x.color="b"
 
 tree=Tree()
