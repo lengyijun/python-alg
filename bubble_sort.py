@@ -11,5 +11,17 @@ def bubble_sort(A):
            # j=j+1
     print(A)
 
+def insert_sort(A):
+    ss=[A[0]]
+    for item in A:
+        pivot=0
+        while ss[pivot]<item:
+            pivot+=1
+        temp=ss[pivot:]#利用PYTHON的特性
+        ss[pivot]=item
+        ss.extend(temp)
+    print(A)
+
+
 A=[49,38,65,97,76,13,27,50]
 bubble_sort(A)
