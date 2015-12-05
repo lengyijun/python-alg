@@ -181,9 +181,9 @@ def RB_delete_fixup(T,x):
             w=x.parent.right
             if w.color=="r":
                 w.color="b"
-                x.parent.color="b"
+                x.parent.color="r"
                 left_rotate(T,x.parent)
-                w=x.parent.left
+                w=x.parent.right
             if w.left.color=="b" and w.right.color=="b":
                 w.color="r"
                 x=x.parent
@@ -201,9 +201,9 @@ def RB_delete_fixup(T,x):
             w=x.parent.left
             if w.color=="r":
                 w.color="b"
-                x.parent.color="b"
+                x.parent.color="r"
                 right_rotate(T,x.parent)
-                w=x.parent.right
+                w=x.parent.left
             if w.left.color=="b" and w.right.color=="b":
                 w.color="r"
                 x=x.parent
