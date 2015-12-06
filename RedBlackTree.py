@@ -196,6 +196,7 @@ def RB_delete_fixup(T,x):
                 w.color=x.parent.color
                 x.parent.color="b"
                 left_rotate(T,x.parent)
+                w.right.color="b"
                 x=T.root
         else:
             w=x.parent.left
@@ -216,6 +217,7 @@ def RB_delete_fixup(T,x):
                 w.color=x.parent.color
                 x.parent.color="b"
                 right_rotate(T,x.parent)
+                w.left.color="b"
                 x=T.root
         # mid_Order(T)
         # print "---------------------------------"
