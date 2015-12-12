@@ -16,6 +16,7 @@ def merge(left,right):
     print result
     return result
 
+
 def merge_sort(A):
     if len(A)<=1:
         return A
