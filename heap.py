@@ -36,6 +36,27 @@ def heapsort(A):
         max_heapify(A,1)
     print ss
 
+def heap_increase_key(A,i,key):
+    if key<=A[i]:
+        print("key<=A[i]")
+        return
+    else:
+        A[i]=key
+        while i>1 and A[i/2]<key:
+            A[i],A[i/2]=A[i/2],A[i]
+            i=i/2
+        return A
+
+def max_heap_insert(A,key):
+    A.append(float("-inf"))
+    A=heap_increase_key(A,len(A)-1,key)
+    return A
+
+def build_max_heap_with_insert(A):
+    B=[A[0]]
+    for i in range(1,len(A)-1):
+        max_heap_insert(B,A[i])
+    return B
 
 # 用于维持最大堆性质的测试
 def test_max_heapify():
@@ -54,4 +75,21 @@ def test_heap_sort():
     A=[0,4,1,3,2,16,9,10,14,8,100,7]
     heapsort(A)
 
-test_heap_sort()
+def test_heap_increase_key():
+     A=[0,100, 16, 14, 10, 9, 8, 7, 4, 3, 2, 1]#A是排好序的数组
+     print(heap_increase_key(A,11,1000))
+
+def test_max_heap_insert():
+    A=[0,100, 16, 14, 10, 9, 8, 7, 4, 3, 2, 1]#A是排好序的数组
+    print(len(A))
+    print(max_heap_insert(A,1000))
+    print(len(A))
+
+def test_build_man_heap_with_insert():
+    A=[0,4,1,3,2,16,9,10,14,8,7]
+    print(build_max_heap_with_insert(A))
+
+# test_heap_sort()
+# test_heap_increase_key()
+# test_max_heap_insert()
+test_build_man_heap_with_insert()
